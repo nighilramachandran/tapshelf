@@ -9,6 +9,8 @@ const darkThemeOptions: ThemeOptions = {
       primary: "#959ea8",
       secondary: "#0066ee",
       dark: "#39404c",
+      success: "#23ae6c",
+      danger: "#dd534a",
     },
     background: {
       default: "#f0f1f3",
@@ -17,7 +19,7 @@ const darkThemeOptions: ThemeOptions = {
       paper: "#ffffff",
     },
     primary: {
-      main: "#d6357e",
+      main: "#4c4e6e",
     },
   },
   // shape: { ...shapOverrides },

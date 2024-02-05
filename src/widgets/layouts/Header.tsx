@@ -1,8 +1,25 @@
-import { AppBar, Input, TextField, Toolbar } from "@mui/material";
-import React, { CSSProperties } from "react";
+import {
+  AppBar,
+  Avatar,
+  Stack,
+  SvgIcon,
+  TextField,
+  Toolbar,
+} from "@mui/material";
+import React from "react";
 import { HEADER_SPACINGS } from "../../utils/config";
-
+import { useAppDispatch } from "../../redux/hooks";
+import { searchProductFunc } from "../../redux/reducers/products";
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 const Header: React.FC = () => {
+  //dispatch
+  const dispatch = useAppDispatch();
+
+  //functions
+  const handelSearch = (value: string) => {
+    dispatch(searchProductFunc(value));
+  };
   return (
     <AppBar
       sx={{
@@ -21,7 +38,30 @@ const Header: React.FC = () => {
           },
         }}
       >
-        <TextField></TextField>
+        <Stack
+          direction={"row"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          width={"100%"}
+        >
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <SearchIcon
+                  style={{
+                    marginRight: 8,
+                  }}
+                />
+              ),
+            }}
+            placeholder="Search Product"
+            onChange={(e) => handelSearch(e.target.value)}
+          ></TextField>
+          <Stack direction={"row"} alignItems={"center"} spacing={2}>
+            <SvgIcon component={NotificationsIcon} />
+            <Avatar src="/assets/images/avatar.jpg"></Avatar>
+          </Stack>
+        </Stack>
       </Toolbar>
     </AppBar>
   );

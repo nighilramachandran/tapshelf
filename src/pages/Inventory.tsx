@@ -2,37 +2,45 @@ import { Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import { CustomTable } from "../components/table";
 import { GridColDef } from "@mui/x-data-grid";
+import { useAppSelector } from "../redux/hooks";
 
 const Inventory = () => {
   //columns
   const columns: GridColDef[] = [
     {
-      field: "Products",
+      field: "productName",
       headerName: "Products",
       flex: 0.1,
       disableColumnMenu: true,
       sortable: false,
     },
     {
-      field: "Buying Price",
+      field: "buyingPrice",
       headerName: "Buying Price",
+      renderCell: ({ row }) => (
+        <Typography>
+          <span>&#8377;</span> {row.buyingPrice}
+        </Typography>
+      ),
       flex: 0.1,
       disableColumnMenu: true,
       sortable: false,
     },
     {
-      field: "Quantity",
+      field: "quantity",
       headerName: "Quantity",
       flex: 0.1,
-      // renderCell: ({ row }) => (
-      //   <Typography>{moment(row.dueDate).format("DD-MM-YYYY")}</Typography>
-      // ),
+      renderCell: ({ row }) => (
+        <Typography>{`${row.quantity} Packets`}</Typography>
+      ),
     },
     {
-      field: "Threshold Value",
+      field: "thresholdValue",
       headerName: "Threshold Value",
+      renderCell: ({ row }) => (
+        <Typography>{`${row.thresholdValue} Packets`}</Typography>
+      ),
       flex: 0.1,
-      // renderCell: ({ row }) => (
       //   <>
       //     <DetailView
       //       data={[
@@ -55,10 +63,9 @@ const Inventory = () => {
     },
 
     {
-      field: "Expiry Date",
+      field: "expiryDate",
       headerName: "Expiry Date",
       flex: 0.1,
-      // renderCell: ({ row }) => (
       //   <EditForm
       //     data={{
       //       id: row.id,
@@ -72,20 +79,26 @@ const Inventory = () => {
       sortable: false,
     },
     {
-      field: "Availability",
+      field: "availability",
       headerName: "Availability",
+      renderCell: ({ row }) => (
+        <Typography
+          sx={{
+            color:
+              row.availability === "In stock" ? "text.success" : "text.danger",
+          }}
+        >
+          {row.availability}
+        </Typography>
+      ),
       flex: 0.1,
-      // renderCell: ({ row }) => (
-      //   <SvgIcon
-      //     sx={{ color: "primary.main", cursor: "pointer" }}
-      //     component={DeleteIcon}
-      //     onClick={() => handleDelete(row.id)}
-      //   />
-      // ),
       disableColumnMenu: true,
       sortable: false,
     },
   ];
+  //selectors
+  const { productItems } = useAppSelector((state) => state.Product);
+
   return (
     <Stack spacing={3}>
       <Paper>
@@ -99,9 +112,12 @@ const Inventory = () => {
         </Typography>
         <CustomTable
           autoHeight
-          rows={[]}
+          rows={productItems ?? []}
           loading={false}
           columns={columns}
+          pageSize={5}
+          pagination={true}
+          // autoPageSize
           disableRowSelectionOnClick
         />
       </Paper>

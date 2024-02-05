@@ -9,6 +9,8 @@ const sideBarStyles: CSSProperties = {
   boxSizing: "border-box",
   display: "flex",
   flexDirection: "column",
+  position: "sticky",
+  top: 0,
 };
 
 const sideBarWrapperStyles: CSSProperties = {
@@ -27,7 +29,13 @@ const SideBar: React.FC = () => {
         ...sideBarStyles,
       }}
     >
-      <Typography sx={{ color: "text.secondary", fontWeight: 800, mb: 3 }}>
+      <Typography
+        sx={{
+          color: "text.secondary",
+          fontWeight: 800,
+          mb: 3,
+        }}
+      >
         TapShelf
       </Typography>
       <Box sx={{ ...sideBarWrapperStyles }}>
