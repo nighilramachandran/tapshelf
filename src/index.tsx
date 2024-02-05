@@ -1,14 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import PrivateRoutes from "./Routes";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import darkThemeOptions from "./styles/theme/DarkTheme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const darkTheme = createTheme(darkThemeOptions);
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline enableColorScheme />
+      <PrivateRoutes />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
