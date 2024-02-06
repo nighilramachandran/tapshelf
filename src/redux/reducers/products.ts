@@ -31,10 +31,27 @@ const ProductSlice = createSlice({
         });
       }
     },
+    addProduct: (state, { payload }: PayloadAction<ProductProps>) => {
+      const newProduct: ProductProps = {
+        ...payload,
+        availability: "In stock",
+      };
+      state.originalProductItems.unshift(newProduct);
+      state.productItems.unshift(newProduct);
+    },
+    deleteProduct: (state, { payload }: PayloadAction<string>) => {
+      state.productItems = state.productItems.filter(
+        (prod) => prod.id !== payload
+      );
+      state.originalProductItems = state.originalProductItems.filter(
+        (prod) => prod.id !== payload
+      );
+    },
   },
 });
 
-export const { setStatus, searchProduct } = ProductSlice.actions;
+export const { setStatus, searchProduct, addProduct, deleteProduct } =
+  ProductSlice.actions;
 
 export const searchProductFunc =
   (value: string): AppThunk =>
@@ -42,28 +59,20 @@ export const searchProductFunc =
     dispatch(searchProduct(value));
   };
 
-// //change the status
-// export const ChangeStatusFunc =
-//   (req: { id: string; isCompleted: boolean }): AppThunk =>
-//   async (dispatch) => {
-//     dispatch(setStatus("loading"));
-//     dispatch(ChangeStatus(req));
-//     dispatch(setStatus("data"));
-//   };
-// //Delete task
-// export const DeleteTaskFunc =
-//   (req: string): AppThunk =>
-//   async (dispatch) => {
-//     dispatch(setStatus("loading"));
-//     dispatch(DeleteTask(req));
-//     dispatch(setStatus("data"));
-//   };
-// //Delete task
-// export const UpdateTaskFunc =
-//   (task: TaskItems): AppThunk =>
-//   async (dispatch) => {
-//     dispatch(setStatus("loading"));
-//     dispatch(UpdateTask(task));
-//     dispatch(setStatus("data"));
-//   };
+export const addProductFunc =
+  (products: ProductProps): AppThunk =>
+  (dispatch) => {
+    console.log("products", products);
+    dispatch(addProduct(products));
+    dispatch(setStatus("data"));
+  };
+
+//Delete task
+export const DeleteProductFunc =
+  (id: string): AppThunk =>
+  async (dispatch) => {
+    dispatch(setStatus("loading"));
+    dispatch(deleteProduct(id));
+    dispatch(setStatus("data"));
+  };
 export default ProductSlice;

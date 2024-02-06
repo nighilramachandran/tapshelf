@@ -1,16 +1,21 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Paper, Stack, SvgIcon, Typography } from "@mui/material";
 import { CustomTable } from "../components/table";
 import { GridColDef } from "@mui/x-data-grid";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import FilterListIcon from "@mui/icons-material/FilterList";
-
+import AddProducts from "../components/add-products/AddProducts";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { DeleteProductFunc } from "../redux/reducers/products";
 const Inventory = () => {
+  //dispatch
+  const dispatch = useAppDispatch();
+
   //columns
   const columns: GridColDef[] = [
     {
       field: "productName",
       headerName: "Products",
-      flex: 0.1,
+      flex: 0.12,
       disableColumnMenu: true,
       sortable: false,
     },
@@ -22,14 +27,14 @@ const Inventory = () => {
           <span>&#8377;</span> {row.buyingPrice}
         </Typography>
       ),
-      flex: 0.1,
+      flex: 0.12,
       disableColumnMenu: true,
       sortable: false,
     },
     {
       field: "quantity",
       headerName: "Quantity",
-      flex: 0.1,
+      flex: 0.12,
       renderCell: ({ row }) => (
         <Typography>{`${row.quantity} Packets`}</Typography>
       ),
@@ -40,7 +45,7 @@ const Inventory = () => {
       renderCell: ({ row }) => (
         <Typography>{`${row.thresholdValue} Packets`}</Typography>
       ),
-      flex: 0.1,
+      flex: 0.12,
       //   <>
       //     <DetailView
       //       data={[
@@ -65,7 +70,7 @@ const Inventory = () => {
     {
       field: "expiryDate",
       headerName: "Expiry Date",
-      flex: 0.1,
+      flex: 0.122,
       //   <EditForm
       //     data={{
       //       id: row.id,
@@ -91,13 +96,32 @@ const Inventory = () => {
           {row.availability}
         </Typography>
       ),
+      flex: 0.12,
+      disableColumnMenu: true,
+      sortable: false,
+    },
+    {
+      field: "_",
+      headerName: "Delete",
       flex: 0.1,
+      renderCell: ({ row }) => (
+        <SvgIcon
+          sx={{ color: "primary.main", cursor: "pointer" }}
+          component={DeleteIcon}
+          onClick={() => handleDelete(row.id)}
+        />
+      ),
       disableColumnMenu: true,
       sortable: false,
     },
   ];
   //selectors
   const { productItems } = useAppSelector((state) => state.Product);
+
+  //functions
+  const handleDelete = (id: string) => {
+    dispatch(DeleteProductFunc(id));
+  };
 
   return (
     <Stack spacing={3}>
@@ -135,7 +159,7 @@ const GridHeader = () => {
         Products
       </Typography>
       <Stack direction={"row"} spacing={2}>
-        <Button variant="contained">Add Product</Button>
+        <AddProducts />
 
         <Button startIcon={<FilterListIcon />} variant="contained">
           Filter
