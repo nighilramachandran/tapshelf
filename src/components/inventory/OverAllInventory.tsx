@@ -8,43 +8,29 @@ const OverAllInventory = () => {
       <Typography sx={{ color: "text.dark", fontWeight: 600, mb: 2 }}>
         Overall Inventory
       </Typography>
-      <Stack direction={"row"} justifyContent={"space-between"} spacing={3}>
+      <Grid container spacing={3}>
         {OverallInventoryItems.map((overall, ind) => {
           return (
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              width={"100%"}
-              key={ind}
-            >
-              <Stack
-                justifyContent={"space-between"}
-                width={"100%"}
-                spacing={2}
-              >
+            <Grid item xs={12} md={6} lg={3} key={ind}>
+              <Stack spacing={2}>
                 <Typography sx={{ color: overall.color, fontWeight: 600 }}>
                   {overall.title}
                 </Typography>
                 <Stack direction={"row"} justifyContent={"space-between"}>
-                  {overall.children.map((child, index) => {
+                  {overall.children.map((child) => {
                     return (
-                      <Stack mr={3}>
-                        <Typography color={"#5f6a7f"}>{child.value}</Typography>
+                      <Stack>
+                        <Typography>{child.value}</Typography>
                         <Typography>{child.desc}</Typography>
                       </Stack>
                     );
                   })}
                 </Stack>
               </Stack>
-              {OverallInventoryItems.length - 1 !== ind && (
-                <Divider
-                  sx={{ width: "1px", bgcolor: "#959ea8", height: "100%" }}
-                ></Divider>
-              )}
-            </Stack>
+            </Grid>
           );
         })}
-      </Stack>
+      </Grid>
     </Paper>
   );
 };
