@@ -1,7 +1,9 @@
-import { Box, Stack, SvgIcon, Typography } from "@mui/material";
-import React, { CSSProperties } from "react";
+import { Box, Stack, SvgIcon, Typography, useTheme } from "@mui/material";
+import React, { CSSProperties, useState } from "react";
 import { SIDE_BAR_BOTTOM, SIDE_BAR_TOP } from "../../utils/config";
 import styled from "@emotion/styled";
+import { useLocation, useNavigate } from "react-router-dom";
+import { sideBarConfig } from "../../interfaces";
 
 //styles
 const sideBarStyles: CSSProperties = {
@@ -41,31 +43,58 @@ const SideBar: React.FC = () => {
       </Typography>
       <Box sx={{ ...sideBarWrapperStyles }}>
         <Stack spacing={3}>
-          {SIDE_BAR_TOP.map((el, ind) => {
-            return (
-              <StyledStack key={ind}>
-                <SvgIcon component={el.icon} />
-                <Typography>{el.name}</Typography>
-              </StyledStack>
-            );
-          })}
+          <MapSideBars items={SIDE_BAR_TOP} />
         </Stack>
         <Stack spacing={3}>
-          {SIDE_BAR_BOTTOM.map((el, ind) => {
-            return (
-              <StyledStack key={ind}>
-                <SvgIcon component={el.icon} />
-                <Typography>{el.name}</Typography>
-              </StyledStack>
-            );
-          })}
+          <MapSideBars items={SIDE_BAR_BOTTOM} />
         </Stack>
       </Box>
     </Box>
   );
 };
 
+//interfaces
+interface MapSideBarsProps {
+  items: sideBarConfig[];
+}
+
 //components
+const MapSideBars = ({ items }: MapSideBarsProps) => {
+  //paths
+  const location = useLocation();
+  //states
+  const [whoIsActive, setWhoIsActive] = useState<string>(
+    location.pathname.split("/")[1] === ""
+      ? "/"
+      : location.pathname.split("/")[1]
+  );
+  //navigate
+  const navigate = useNavigate();
+
+  //use Theme
+  const { palette } = useTheme();
+
+  //functions
+  const handleNavigate = (val: string) => {
+    navigate(val);
+    setWhoIsActive(val);
+  };
+  return (
+    <>
+      {items.map((el, ind) => {
+        const isActive = whoIsActive === el.to;
+        const setColor = isActive ? palette.primary.main : "";
+        return (
+          <StyledStack key={ind} onClick={() => handleNavigate(el.to ?? "")}>
+            <SvgIcon sx={{ color: setColor }} component={el.icon} />
+            <Typography sx={{ color: setColor }}>{el.name}</Typography>
+          </StyledStack>
+        );
+      })}
+    </>
+  );
+};
+
 const StyledStack = styled(Stack)(({ theme }: any) => ({
   flexDirection: "row",
   alignItems: "center",

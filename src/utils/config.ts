@@ -18,26 +18,32 @@ export const SIDE_BAR_TOP: sideBarConfig[] = [
   {
     name: "Dashboard",
     icon: HomeIcon,
+    to: "dashboard",
   },
   {
     name: "Inventory",
     icon: ShoppingCartCheckoutIcon,
+    to: "/",
   },
   {
     name: "Reports",
     icon: AssessmentIcon,
+    to: "reports",
   },
   {
     name: "Suppliers",
     icon: SupervisedUserCircleIcon,
+    to: "suppliers",
   },
   {
     name: "Orders",
     icon: AllInboxIcon,
+    to: "orders",
   },
   {
     name: "Manage Store",
     icon: LibraryBooksIcon,
+    to: "manage-store",
   },
 ];
 
@@ -46,10 +52,12 @@ export const SIDE_BAR_BOTTOM: sideBarConfig[] = [
   {
     name: "Settings",
     icon: SettingsIcon,
+    to: "settings",
   },
   {
     name: "Logout",
     icon: LogoutIcon,
+    to: "logout",
   },
 ];
 

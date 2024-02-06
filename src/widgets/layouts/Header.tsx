@@ -6,15 +6,25 @@ import {
   TextField,
   Toolbar,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HEADER_SPACINGS } from "../../utils/config";
 import { useAppDispatch } from "../../redux/hooks";
 import { searchProductFunc } from "../../redux/reducers/products";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useLocation } from "react-router-dom";
 const Header: React.FC = () => {
+  //states
+  const [isInventory, setIsInvetory] = useState<boolean>();
+
+  const location = useLocation();
   //dispatch
   const dispatch = useAppDispatch();
+
+  //useEffects
+  useEffect(() => {
+    setIsInvetory(location.pathname.split("/")[1] === "" ? true : false);
+  }, [location]);
 
   //functions
   const handelSearch = (value: string) => {
@@ -41,22 +51,24 @@ const Header: React.FC = () => {
         <Stack
           direction={"row"}
           alignItems={"center"}
-          justifyContent={"space-between"}
+          justifyContent={isInventory ? "space-between" : "end"}
           width={"100%"}
         >
-          <TextField
-            InputProps={{
-              startAdornment: (
-                <SearchIcon
-                  style={{
-                    marginRight: 8,
-                  }}
-                />
-              ),
-            }}
-            placeholder="Search Product"
-            onChange={(e) => handelSearch(e.target.value)}
-          ></TextField>
+          {isInventory && (
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <SearchIcon
+                    style={{
+                      marginRight: 8,
+                    }}
+                  />
+                ),
+              }}
+              placeholder="Search Product"
+              onChange={(e) => handelSearch(e.target.value)}
+            ></TextField>
+          )}
           <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <SvgIcon component={NotificationsIcon} />
             <Avatar src="/assets/images/avatar.jpg"></Avatar>

@@ -13,4 +13,5 @@ export interface headerTile {
 export interface sideBarConfig {
   name: string;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+  to?: string;
 }
