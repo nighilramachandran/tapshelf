@@ -118,24 +118,22 @@ const ShowInventory: React.FC = () => {
 //components
 const InventoryHeader = () => {
   return (
-    <>
-      <Grid container>
-        <Grid item xs={12} sm={6}>
-          <Typography sx={{ color: "text.dark", fontWeight: 600 }}>
-            Products
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Stack direction={"row"} spacing={2} justifyContent={{ sm: "end" }}>
-            <AddProducts />
-            <Button startIcon={<FilterListIcon />} variant="contained">
-              Filter
-            </Button>
-            <Button variant="contained">Download all</Button>
-          </Stack>
-        </Grid>
+    <Grid container>
+      <Grid item xs={12} sm={6}>
+        <Typography sx={{ color: "text.dark", fontWeight: 600 }}>
+          Products
+        </Typography>
       </Grid>
-    </>
+      <Grid item xs={12} sm={6}>
+        <Stack direction={"row"} spacing={2} justifyContent={{ sm: "end" }}>
+          <AddProducts />
+          <Button startIcon={<FilterListIcon />} variant="contained">
+            Filter
+          </Button>
+          <Button variant="contained">Download all</Button>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 

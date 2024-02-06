@@ -101,11 +101,6 @@ const AddProducts = () => {
       <Button variant="contained" onClick={handleClick}>
         Add Product
       </Button>
-      {/* <SvgIcon
-        sx={{ color: "primary.main", cursor: "pointer" }}
-        component={EditIcon}
-        onClick={handleClick}
-      /> */}
     </>
   );
 };

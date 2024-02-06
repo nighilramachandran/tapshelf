@@ -30,22 +30,24 @@ const Header: React.FC = () => {
   //dispatch
   const dispatch = useAppDispatch();
 
-  //useEffects
-  useEffect(() => {
-    setIsInvetory(location.pathname.split("/")[1] === "" ? true : false);
-  }, [location]);
-
-  //functions
-  const handelSearch = (value: string) => {
-    dispatch(searchProductFunc(value));
-  };
-
+  //toggle
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
 
   //responsive
   const isDesktop = useResponsive("up", "md");
+
+  //functions
+  const handelSearch = (value: string) => {
+    dispatch(searchProductFunc(value));
+  };
+
+  //useEffects
+  useEffect(() => {
+    setIsInvetory(location.pathname.split("/")[1] === "" ? true : false);
+  }, [location]);
+
   return (
     <AppBar
       sx={{

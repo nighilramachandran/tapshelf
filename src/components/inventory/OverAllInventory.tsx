@@ -1,8 +1,8 @@
-import { Box, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import { OverallInventoryItems } from "../../utils/data/Products";
 
-const OverAllInventory = () => {
+const OverAllInventory: React.FC = () => {
   return (
     <Paper>
       <Typography sx={{ color: "text.dark", fontWeight: 600, mb: 2 }}>
