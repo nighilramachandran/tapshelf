@@ -3,6 +3,7 @@ import React, { CSSProperties } from "react";
 import { SIDE_BAR_BOTTOM, SIDE_BAR_TOP } from "../../utils/config";
 import styled from "@emotion/styled";
 
+//styles
 const sideBarStyles: CSSProperties = {
   padding: 3,
   height: "inherit",

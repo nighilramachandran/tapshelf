@@ -19,7 +19,7 @@ const darkThemeOptions: ThemeOptions = {
       paper: "#ffffff",
     },
     primary: {
-      main: "#4c4e6e",
+      main: "#1266d9",
     },
   },
   // shape: { ...shapOverrides },

@@ -1,8 +1,8 @@
-import { Paper, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import { CustomTable } from "../components/table";
 import { GridColDef } from "@mui/x-data-grid";
 import { useAppSelector } from "../redux/hooks";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 const Inventory = () => {
   //columns
@@ -107,9 +107,7 @@ const Inventory = () => {
         </Typography>
       </Paper>
       <Paper>
-        <Typography sx={{ color: "text.dark", fontWeight: 600 }}>
-          Products
-        </Typography>
+        <GridHeader />
         <CustomTable
           autoHeight
           rows={productItems ?? []}
@@ -121,6 +119,29 @@ const Inventory = () => {
           disableRowSelectionOnClick
         />
       </Paper>
+    </Stack>
+  );
+};
+
+//components
+const GridHeader = () => {
+  return (
+    <Stack
+      direction={"row"}
+      alignItems={"center"}
+      justifyContent={"space-between"}
+    >
+      <Typography sx={{ color: "text.dark", fontWeight: 600 }}>
+        Products
+      </Typography>
+      <Stack direction={"row"} spacing={2}>
+        <Button variant="contained">Add Product</Button>
+
+        <Button startIcon={<FilterListIcon />} variant="contained">
+          Filter
+        </Button>
+        <Button variant="contained">Download all</Button>
+      </Stack>
     </Stack>
   );
 };
