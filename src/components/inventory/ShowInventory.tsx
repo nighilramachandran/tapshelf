@@ -1,4 +1,4 @@
-import { Button, Paper, Stack, SvgIcon, Typography } from "@mui/material";
+import { Button, Grid, Paper, Stack, SvgIcon, Typography } from "@mui/material";
 import React from "react";
 import AddProducts from "../add-products/AddProducts";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -118,23 +118,24 @@ const ShowInventory: React.FC = () => {
 //components
 const InventoryHeader = () => {
   return (
-    <Stack
-      direction={"row"}
-      alignItems={"center"}
-      justifyContent={"space-between"}
-    >
-      <Typography sx={{ color: "text.dark", fontWeight: 600 }}>
-        Products
-      </Typography>
-      <Stack direction={"row"} spacing={2}>
-        <AddProducts />
-
-        <Button startIcon={<FilterListIcon />} variant="contained">
-          Filter
-        </Button>
-        <Button variant="contained">Download all</Button>
-      </Stack>
-    </Stack>
+    <>
+      <Grid container>
+        <Grid item xs={12} sm={6}>
+          <Typography sx={{ color: "text.dark", fontWeight: 600 }}>
+            Products
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Stack direction={"row"} spacing={2} justifyContent={{ sm: "end" }}>
+            <AddProducts />
+            <Button startIcon={<FilterListIcon />} variant="contained">
+              Filter
+            </Button>
+            <Button variant="contained">Download all</Button>
+          </Stack>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

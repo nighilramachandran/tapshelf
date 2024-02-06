@@ -11,8 +11,15 @@ const OverAllInventory = () => {
       <Grid container spacing={3}>
         {OverallInventoryItems.map((overall, ind) => {
           return (
-            <Grid item xs={12} md={6} lg={3} key={ind}>
-              <Stack spacing={2}>
+            <Grid
+              sx={{ borderRight: "1px solid #f4f5f6" }}
+              item
+              xs={12}
+              md={6}
+              lg={3}
+              key={ind}
+            >
+              <Stack spacing={2} mr={3}>
                 <Typography sx={{ color: overall.color, fontWeight: 600 }}>
                   {overall.title}
                 </Typography>
@@ -20,7 +27,9 @@ const OverAllInventory = () => {
                   {overall.children.map((child) => {
                     return (
                       <Stack>
-                        <Typography>{child.value}</Typography>
+                        <Typography sx={{ fontWeight: 600, color: "#4f5b71" }}>
+                          {child.value}
+                        </Typography>
                         <Typography>{child.desc}</Typography>
                       </Stack>
                     );
